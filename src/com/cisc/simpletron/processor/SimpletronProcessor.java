@@ -27,7 +27,6 @@ public class SimpletronProcessor {
     public void process() {
         loadMemory();
         executeOperations();
-        dumpSummary();
     }
 
     private void loadMemory() {
@@ -125,33 +124,6 @@ public class SimpletronProcessor {
         }
     }
 
-
-
-    private void dumpSummary() {
-        System.out.println();
-        System.out.println("REGISTERS:");
-        System.out.printf("%-30s%5s\n", "accumulator", formatInteger(accumulator, 4, true));
-        System.out.printf("%-30s%5s\n", "instructionCounter", formatInteger(instructionCounter, 2, false));
-        System.out.printf("%-30s%5s\n", "instructionRegister", formatInteger(instructionRegister, 4, true));
-        System.out.printf("%-30s%5s\n", "operationCode", formatInteger(operationCode, 2, false));
-        System.out.printf("%-30s%5s\n", "operand", formatInteger(operand, 2, false));
-        System.out.println();
-
-        System.out.println("MEMORY:");
-        System.out.printf("%3s", "");
-        for (int i = 0; i < 10; i++) {
-            System.out.printf("%8d", i);
-        }
-        for (int i = 0; i < 100; i++) {
-            if (i % 10 == 0) {
-                System.out.println();
-                System.out.printf("%3d", i);
-            }
-            System.out.printf("%8s", formatInteger(memory.getVal(i), 4, true));
-        }
-        System.out.println();
-    }
-
     private int validateInstruction(int instruction, String prompt) {
         try {
             instruction = scanner.nextInt();
@@ -175,22 +147,5 @@ public class SimpletronProcessor {
         }
         return addr;
     }
-
-    private String formatInteger(int word, int len, boolean isSigned) {
-        String sign = isSigned ? word < 0 ? "-" : "+" : "";
-        String str = Integer.toString(word);
-        int diff = len - str.length();
-        if (diff == 0) {
-            return sign + str;
-        } else if (diff == 1) {
-            return sign + "0" + str;
-        } else if (diff == 2) {
-            return sign + "00" + str;
-        } else if (diff == 3) {
-            return sign + "000" + str;
-        }
-        return sign + str;
-    }
-
 
 }
