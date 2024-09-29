@@ -163,7 +163,6 @@ public class SimpletronProcessor {
             }
             instructionCounter++;
         }
-        //scanner.close();
     }
 
     private int validateInstruction(int instruction, String prompt) {
