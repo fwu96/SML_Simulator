@@ -95,6 +95,7 @@ public class SimpletronProcessor {
             instructionRegister = memory.getVal(instructionCounter);
             operationCode = instructionRegister / 100;
             operand = instructionRegister % 100;
+            var currVal = memory.getVal(operand);
             switch (Operations.getOperation(operationCode)) {
                 case READ:
                     System.out.print("Enter an integer: ");
@@ -107,33 +108,33 @@ public class SimpletronProcessor {
                     memory.saveVal(operand, val);
                     break;
                 case WRITE:
-                    System.out.println(memory.getVal(operand));
+                    System.out.println(currVal);
                     break;
                 case LOAD:
-                    accumulator = memory.getVal(operand);
+                    accumulator = currVal;
                     break;
                 case STORE:
                     memory.saveVal(operand, accumulator);
                     break;
                 case ADD:
-                    accumulator += memory.getVal(operand);
+                    accumulator += currVal;
                     break;
                 case SUBTRACT:
-                    accumulator -= memory.getVal(operand);
+                    accumulator -= currVal;
                     break;
                 case DIVIDE:
-                    if (memory.getVal(operand) == 0) {
+                    if (currVal == 0) {
                         System.out.println("""
                                 *** Attempt to divide by zero ***
                                 *** Simpletron execution terminated abnormally ***
                                 """);
                         System.exit(1);
                     } else {
-                        accumulator /= memory.getVal(operand);
+                        accumulator /= currVal;
                         break;
                     }
                 case MULTIPLY:
-                    accumulator *= memory.getVal(operand);
+                    accumulator *= currVal;
                     break;
                 case BRANCH:
                     instructionCounter = operand;
@@ -153,6 +154,22 @@ public class SimpletronProcessor {
                 case HALT:
                     System.out.println("*** Simpletron execution terminated normally ***");
                     return;
+                case REMAINDER:
+                    if (currVal == 0) {
+                        System.out.println("""
+                                *** Attempt to divide by zero ***
+                                *** Simpletron execution terminated abnormally ***
+                                """);
+                        System.exit(1);
+                    }
+                    accumulator %= currVal;
+                    break;
+                case EXPO:
+                    accumulator = (int) Math.pow(accumulator, currVal);
+                    break;
+                case NEWLINE:
+                    System.out.println();
+                    break;
                 case null:
                 default:
                     System.out.println("""

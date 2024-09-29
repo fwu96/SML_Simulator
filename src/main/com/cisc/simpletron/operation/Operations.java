@@ -4,7 +4,9 @@ public enum Operations {
     READ(10), WRITE(11),
     LOAD(20), STORE(21),
     ADD(30), SUBTRACT(31), DIVIDE(32), MULTIPLY(33),
-    BRANCH(40), BRANCHNEG(41), BRANCHZERO(42), HALT(43);
+    BRANCH(40), BRANCHNEG(41), BRANCHZERO(42), HALT(43),
+    REMAINDER(50), EXPO(51),
+    NEWLINE(60);
 
     private final int value;
 
