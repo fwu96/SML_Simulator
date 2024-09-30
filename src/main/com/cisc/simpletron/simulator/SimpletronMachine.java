@@ -2,6 +2,9 @@ package main.com.cisc.simpletron.simulator;
 
 import main.com.cisc.simpletron.processor.SimpletronProcessor;
 
+/**
+ * The main class there Simpletron Machine runs
+ */
 public class SimpletronMachine {
 
     private static final SimpletronProcessor processor = new SimpletronProcessor(100);

@@ -7,6 +7,9 @@ import main.com.cisc.simpletron.simulator.MachineMode;
 import java.io.File;
 import java.util.Scanner;
 
+/**
+ * The core class for the Simpletron machine to load instructions and execute operations
+ */
 public class SimpletronProcessor {
     private final SimpletronMemory memory;
     private int instructionCounter;
@@ -26,6 +29,10 @@ public class SimpletronProcessor {
         this.accumulator = 0;
     }
 
+    /**
+     * Main process method to call execution steps in order
+     * based on selected mode - user input or file input
+     */
     public void process() {
         MachineMode mode = selectLoadingSource();
         switch (mode) {
@@ -41,6 +48,9 @@ public class SimpletronProcessor {
         scanner.close();
     }
 
+    /**
+     * Loading instructions to memory by user input
+     */
     private void loadMemoryFromUserInput() {
         System.out.println("Simpletron program will load from user input. Please follow the prompts.");
         System.out.println();
@@ -66,6 +76,9 @@ public class SimpletronProcessor {
                 """);
     }
 
+    /**
+     * Loading instructions to memory by file input
+     */
     private void loadMemoryFromFile() {
         System.out.print("Simpletron program will load from file. Enter file path: ");
         try {
@@ -89,6 +102,9 @@ public class SimpletronProcessor {
         }
     }
 
+    /**
+     * Executing operations after memory loading finished
+     */
     private void executeOperations() {
         while (instructionCounter < memory.getSize()
                 && memory.getVal(instructionCounter) != -99999) {
@@ -100,6 +116,7 @@ public class SimpletronProcessor {
                 case READ:
                     System.out.print("Enter an integer: ");
                     int val = scanner.nextInt();
+                    // ask user reenter number if input is invalid
                     while (val < -9999 || val > 9999) {
                         System.out.println("Input must be in range [-9999, 9999]");
                         System.out.print("Enter an integer: ");
@@ -182,6 +199,12 @@ public class SimpletronProcessor {
         }
     }
 
+    /**
+     * Helper method for validating input instructions
+     * @param instruction the instruction to load into memory
+     * @param prompt string showed to user
+     * @return loaded instruction
+     */
     private int validateInstruction(int instruction, String prompt) {
         try {
             instruction = scanner.nextInt();
@@ -198,6 +221,12 @@ public class SimpletronProcessor {
         return instruction;
     }
 
+    /**
+     * Helper method to load instruction into memory at specific address
+     * @param addr the location where instruction is stored
+     * @param instruction instruction to store
+     * @return next address of memory
+     */
     private int loadInstruction(int addr, int instruction) {
         if (instruction != -99999) {
             memory.saveVal(addr, instruction);
@@ -206,6 +235,9 @@ public class SimpletronProcessor {
         return addr;
     }
 
+    /**
+     * Method to print memory dump at the end of program execution
+     */
     private void dumpSummary() {
         scanner.close();
         System.out.println();
@@ -232,6 +264,13 @@ public class SimpletronProcessor {
         System.out.println();
     }
 
+    /**
+     * A helper method to format values those are going to be printed by memory dump
+     * @param word the value
+     * @param len the expected length to print
+     * @param isSigned if including sign when printing
+     * @return formatted string to print
+     */
     private String formatInteger(int word, int len, boolean isSigned) {
         String sign = isSigned ? word < 0 ? "-" : "+" : "";
         String str = Integer.toString(word);
@@ -248,6 +287,12 @@ public class SimpletronProcessor {
         return sign + str;
     }
 
+    /**
+     * A helper method to ask user select instruction loading mode
+     * 1) User Input
+     * 2) File Input
+     * @return the mode selected
+     */
     private MachineMode selectLoadingSource() {
         System.out.println("""
             This Simpletron program loads from two sources:
