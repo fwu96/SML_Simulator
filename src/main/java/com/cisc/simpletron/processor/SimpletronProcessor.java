@@ -3,7 +3,6 @@ package com.cisc.simpletron.processor;
 import com.cisc.simpletron.memory.SimpletronMemory;
 import com.cisc.simpletron.operation.Operations;
 import com.cisc.simpletron.scanner.ScannerHelper;
-import com.cisc.simpletron.simulator.MachineMode;
 
 import java.io.File;
 import java.util.Scanner;

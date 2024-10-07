@@ -1,4 +1,4 @@
-package com.cisc.simpletron.simulator;
+package com.cisc.simpletron.processor;
 
 public enum MachineMode {
     USER_INPUT(1),

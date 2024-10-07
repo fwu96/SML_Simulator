@@ -55,7 +55,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
-                    <mainClass>com.cisc.simpletron.simulator.SimpletronMachine</mainClass>
+                    <mainClass>com.cisc.simpletron.SimpletronMachine</mainClass>
                 </configuration>
             </plugin>
         </plugins>
