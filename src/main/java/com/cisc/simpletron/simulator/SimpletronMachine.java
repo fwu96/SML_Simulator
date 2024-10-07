@@ -5,6 +5,9 @@ import com.cisc.simpletron.scanner.ScannerHelper;
 
 /**
  * The main class there Simpletron Machine runs
+ *
+ * @author Feifan Wu
+ * @version 3.0
  */
 public class SimpletronMachine {
 
