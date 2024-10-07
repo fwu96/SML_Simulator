@@ -6,7 +6,6 @@ import com.cisc.simpletron.scanner.ScannerHelper;
 import com.cisc.simpletron.simulator.MachineMode;
 
 import java.io.File;
-import java.util.Scanner;
 
 public class SimpletronProcessor {
     private final SimpletronMemory memory;
@@ -195,7 +194,6 @@ public class SimpletronProcessor {
     }
 
     private void dumpSummary() {
-        //scanner.close();
         System.out.println();
         System.out.println("REGISTERS:");
         System.out.printf("%-30s%5s\n", "accumulator", formatInteger(accumulator, 4, true));
