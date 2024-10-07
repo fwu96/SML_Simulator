@@ -1,4 +1,4 @@
-package com.cisc.simpletron.simulator;
+package com.cisc.simpletron;
 
 import com.cisc.simpletron.processor.SimpletronProcessor;
 import com.cisc.simpletron.scanner.ScannerHelper;

@@ -1,1 +1,1 @@
-Main-Class: com.cisc.simpletron.simulator.SimpletronMachine
+Main-Class: com.cisc.simpletron.SimpletronMachine
