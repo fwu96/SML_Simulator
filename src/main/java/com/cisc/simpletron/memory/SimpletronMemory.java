@@ -1,4 +1,4 @@
-package main.com.cisc.simpletron.memory;
+package com.cisc.simpletron.memory;
 
 public class SimpletronMemory {
     private final int[] memory;

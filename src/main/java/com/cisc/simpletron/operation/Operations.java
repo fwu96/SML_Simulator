@@ -1,4 +1,4 @@
-package main.com.cisc.simpletron.operation;
+package com.cisc.simpletron.operation;
 
 public enum Operations {
     READ(10), WRITE(11),

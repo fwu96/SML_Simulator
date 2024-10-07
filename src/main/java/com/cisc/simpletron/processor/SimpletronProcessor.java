@@ -1,8 +1,9 @@
-package main.com.cisc.simpletron.processor;
+package com.cisc.simpletron.processor;
 
-import main.com.cisc.simpletron.memory.SimpletronMemory;
-import main.com.cisc.simpletron.operation.Operations;
-import main.com.cisc.simpletron.simulator.MachineMode;
+import com.cisc.simpletron.memory.SimpletronMemory;
+import com.cisc.simpletron.operation.Operations;
+import com.cisc.simpletron.scanner.ScannerHelper;
+import com.cisc.simpletron.simulator.MachineMode;
 
 import java.io.File;
 import java.util.Scanner;
@@ -14,19 +15,19 @@ public class SimpletronProcessor {
     private int operationCode;
     private int operand;
     private int accumulator;
+    private final ScannerHelper scanner;
 
-    private final Scanner scanner = new Scanner(System.in);
-
-    public SimpletronProcessor(int size) {
+    public SimpletronProcessor(int size, ScannerHelper scanner) {
         this.memory = new SimpletronMemory(size);
         this.instructionRegister = 0;
         this.instructionCounter = 0;
         this.operationCode = 0;
         this.operand = 0;
         this.accumulator = 0;
+        this.scanner = scanner;
     }
 
-    public void process() {
+    public int process() {
         MachineMode mode = selectLoadingSource();
         switch (mode) {
             case USER_INPUT:
@@ -36,9 +37,11 @@ public class SimpletronProcessor {
                 loadMemoryFromFile();
                 break;
         }
-        executeOperations();
+        int res = executeOperations();
+        System.out.println("Final Result: " + res);
         dumpSummary();
-        scanner.close();
+        scanner.closeScanner();
+        return res;
     }
 
     private void loadMemoryFromUserInput() {
@@ -70,8 +73,8 @@ public class SimpletronProcessor {
         System.out.print("Simpletron program will load from file. Enter file path: ");
         try {
             int addr = 0;
-            scanner.nextLine();
-            String path = scanner.nextLine();
+            scanner.inputString();
+            String path = scanner.inputString();
             Scanner fileSC = new Scanner(new File(path));
             while (fileSC.hasNextLine()) {
                 loadInstruction(addr, Integer.parseInt(fileSC.nextLine()));
@@ -89,7 +92,8 @@ public class SimpletronProcessor {
         }
     }
 
-    private void executeOperations() {
+    private int executeOperations() {
+        int res = 0;
         while (instructionCounter < memory.getSize()
                 && memory.getVal(instructionCounter) != -99999) {
             instructionRegister = memory.getVal(instructionCounter);
@@ -98,16 +102,16 @@ public class SimpletronProcessor {
             switch (Operations.getOperation(operationCode)) {
                 case READ:
                     System.out.print("Enter an integer: ");
-                    int val = scanner.nextInt();
+                    int val = scanner.inputInt();
                     while (val < -9999 || val > 9999) {
                         System.out.println("Input must be in range [-9999, 9999]");
                         System.out.print("Enter an integer: ");
-                        val = scanner.nextInt();
+                        val = scanner.inputInt();
                     }
                     memory.saveVal(operand, val);
                     break;
                 case WRITE:
-                    System.out.println(memory.getVal(operand));
+                    res = memory.getVal(operand);
                     break;
                 case LOAD:
                     accumulator = memory.getVal(operand);
@@ -152,26 +156,27 @@ public class SimpletronProcessor {
                     break;
                 case HALT:
                     System.out.println("*** Simpletron execution terminated normally ***");
-                    return;
+                    return res;
                 case null:
                 default:
                     System.out.println("""
                             *** Invalid operation code ***
                             *** Simpletron execution terminated abnormally ***
                             """);
-                    return;
+                    return res;
             }
             instructionCounter++;
         }
+        return res;
     }
 
     private int validateInstruction(int instruction, String prompt) {
         try {
-            instruction = scanner.nextInt();
+            instruction = scanner.inputInt();
             while (instruction != -99999 && (instruction < -9999 || instruction > 9999)) {
                 System.out.println("Please input instruction in range [-9999, 9999] or -99999");
                 System.out.print(prompt);
-                instruction = scanner.nextInt();
+                instruction = scanner.inputInt();
             }
         } catch (Exception e) {
             System.out.println("*** Exception while loading instruction to memory: " + e.getMessage() + " ***");
@@ -190,7 +195,7 @@ public class SimpletronProcessor {
     }
 
     private void dumpSummary() {
-        scanner.close();
+        //scanner.close();
         System.out.println();
         System.out.println("REGISTERS:");
         System.out.printf("%-30s%5s\n", "accumulator", formatInteger(accumulator, 4, true));
@@ -238,7 +243,7 @@ public class SimpletronProcessor {
             2) File Input
             """);
         System.out.print("Please select input source: ");
-        int input = scanner.nextInt();
+        int input = scanner.inputInt();
         MachineMode mode = MachineMode.getMode(input);
         while (mode == null) {
             System.out.println("""
@@ -247,7 +252,7 @@ public class SimpletronProcessor {
             2) File input
             """);
             System.out.print("Please select input source: ");
-            input = scanner.nextInt();
+            input = scanner.inputInt();
             mode = MachineMode.getMode(input);
         }
         return mode;
