@@ -67,3 +67,10 @@ MEMORY:
  80   +0000   +0000   +0000   +0000   +0000   +0000   +0000   +0000   +0000   +0000
  90   +0000   +0000   +0000   +0000   +0000   +0000   +0000   +0000   +0000   +0000
 ```
+
+### 3.0
+
+- Version 3.0 added features to support remainder, exponential and new line operations
+- More instruction loading files are included in `resources` folder
+- Comments are added to class and method level
+- Code refactoring and enhancements

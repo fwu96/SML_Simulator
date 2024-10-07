@@ -3,6 +3,12 @@ package com.cisc.simpletron;
 import com.cisc.simpletron.processor.SimpletronProcessor;
 import com.cisc.simpletron.scanner.ScannerHelper;
 
+/**
+ * Main class to launch the Simpletron Machine
+ *
+ * @author Feifan Wu
+ * @version 3.0
+ */
 public class SimpletronMachine {
 
     private static final SimpletronProcessor processor = new SimpletronProcessor(100, new ScannerHelper());

@@ -3,6 +3,9 @@ package com.cisc.simpletron.simulator;
 import com.cisc.simpletron.processor.SimpletronProcessor;
 import com.cisc.simpletron.scanner.ScannerHelper;
 
+/**
+ * The main class there Simpletron Machine runs
+ */
 public class SimpletronMachine {
 
     private static final SimpletronProcessor processor = new SimpletronProcessor(100, new ScannerHelper());
