@@ -9,6 +9,9 @@ package com.cisc.simpletron.memory;
  * 1) save value into target address
  * 2) get value at a specific address
  * 3) get memory size
+ *
+ * @author Feifan Wu
+ * @version 3.0
  */
 public class SimpletronMemory {
     private final int[] memory;

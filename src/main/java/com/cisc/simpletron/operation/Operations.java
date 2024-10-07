@@ -5,6 +5,9 @@ package com.cisc.simpletron.operation;
  * assigned with associated value of operation code
  * <p>
  * Provides a method to get operation by given operation code
+ *
+ * @author Feifan Wu
+ * @version 3.0
  */
 public enum Operations {
     READ(10), WRITE(11),
