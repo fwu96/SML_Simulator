@@ -6,6 +6,7 @@ import com.cisc.simpletron.scanner.ScannerHelper;
 import com.cisc.simpletron.simulator.MachineMode;
 
 import java.io.File;
+import java.util.Scanner;
 
 public class SimpletronProcessor {
     private final SimpletronMemory memory;
