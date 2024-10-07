@@ -1,4 +1,4 @@
-package main.com.cisc.simpletron.memory;
+package com.cisc.simpletron.memory;
 
 /**
  * The class work as memory for Simpletron machine

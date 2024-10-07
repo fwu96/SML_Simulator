@@ -1,4 +1,4 @@
-package main.com.cisc.simpletron.operation;
+package com.cisc.simpletron.operation;
 
 /**
  * The enum class contains all operations supported by the Simpletron program,
