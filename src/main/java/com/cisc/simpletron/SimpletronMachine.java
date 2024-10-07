@@ -1,10 +1,11 @@
 package com.cisc.simpletron;
 
 import com.cisc.simpletron.processor.SimpletronProcessor;
+import com.cisc.simpletron.scanner.ScannerHelper;
 
 public class SimpletronMachine {
 
-    private static final SimpletronProcessor processor = new SimpletronProcessor(100);
+    private static final SimpletronProcessor processor = new SimpletronProcessor(100, new ScannerHelper());
 
     public static void main(String[] args) {
         printWelcomePrompts();
