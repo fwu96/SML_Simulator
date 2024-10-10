@@ -1,7 +1,7 @@
 package com.cisc.simpletron;
 
 import com.cisc.simpletron.processor.SimpletronProcessor;
-import com.cisc.simpletron.scanner.ScannerHelper;
+import com.cisc.simpletron.helper.ScannerHelper;
 
 /**
  * The main class there Simpletron Machine runs

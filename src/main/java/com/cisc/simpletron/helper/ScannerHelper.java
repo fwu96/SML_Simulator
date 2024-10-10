@@ -1,4 +1,4 @@
-package com.cisc.simpletron.scanner;
+package com.cisc.simpletron.helper;
 
 import java.util.Scanner;
 
