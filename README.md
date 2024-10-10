@@ -1,4 +1,4 @@
-# Simpletron
+# Simpletron - SML Simulator
 
 - This is the Version Control project for CISC 594 - Software Testing Prin & Techniques, Harrisburg University of Science and Technology
 
