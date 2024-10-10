@@ -1,8 +1,6 @@
 package com.cisc.simpletron.processor;
 
-import com.cisc.simpletron.memory.SimpletronMemory;
-import com.cisc.simpletron.operation.Operations;
-import com.cisc.simpletron.scanner.ScannerHelper;
+import com.cisc.simpletron.helper.ScannerHelper;
 
 import java.io.File;
 import java.util.Scanner;
@@ -14,7 +12,7 @@ import java.util.Scanner;
  * @version 3.0
  */
 public class SimpletronProcessor {
-    private final SimpletronMemory memory;
+    private final Memory memory;
     private int instructionCounter;
     private int instructionRegister;
     private int operationCode;
@@ -23,7 +21,7 @@ public class SimpletronProcessor {
     private final ScannerHelper scanner;
 
     public SimpletronProcessor(int size, ScannerHelper scanner) {
-        this.memory = new SimpletronMemory(size);
+        this.memory = new Memory(size);
         this.instructionRegister = 0;
         this.instructionCounter = 0;
         this.operationCode = 0;
@@ -319,5 +317,95 @@ public class SimpletronProcessor {
             mode = MachineMode.getMode(input);
         }
         return mode;
+    }
+
+    /*
+        Below are the inner classes because they will only be used by the processor class
+     */
+
+    /**
+     *
+     * The memory class to store instructions and computing
+     * Make a separate inner class to manage
+     *
+     * @author Feifan Wu
+     * @version 3.0
+     */
+    private static class Memory {
+        private final int[] memory;
+        private final int size;
+
+        public Memory(int size) {
+            this.size = size;
+            memory = new int[size];
+        }
+
+        public void saveVal(int address, int value) {
+            memory[address] = value;
+        }
+
+        public int getVal(int address) {
+            return memory[address];
+        }
+
+        public int getSize() {
+            return size;
+        }
+    }
+
+    /**
+     * Inner enum to config all supported operations with the related operation codes
+     * Provide method to get operation by given operation code
+     *
+     * @author Feifan Wu
+     * @version 3.0
+     */
+    private enum Operations {
+        READ(10), WRITE(11),
+        LOAD(20), STORE(21),
+        ADD(30), SUBTRACT(31), DIVIDE(32), MULTIPLY(33),
+        BRANCH(40), BRANCHNEG(41), BRANCHZERO(42), HALT(43),
+        REMAINDER(50), EXPO(51),
+        NEWLINE(60);
+
+        final int code;
+
+        Operations(int code) {
+            this.code = code;
+        }
+
+        public static Operations getOperation(int operationCode) {
+            for (Operations operation : Operations.values()) {
+                if (operation.code == operationCode) {
+                    return operation;
+                }
+            }
+            return null;
+        }
+    }
+
+    /**
+     * Inner enum for mode selection detecting
+     *
+     * @author Feifan Wu
+     * @version 3.0
+     */
+    private enum MachineMode {
+        USER_INPUT(1),
+        READ_FILE(2);
+
+        final int modeCode;
+        MachineMode(int modeCode) {
+            this.modeCode = modeCode;
+        }
+
+        public static MachineMode getMode(int input) {
+            for (MachineMode mode : MachineMode.values()) {
+                if (mode.modeCode == input) {
+                    return mode;
+                }
+            }
+            return null;
+        }
     }
 }
